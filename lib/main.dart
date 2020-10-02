@@ -1,14 +1,20 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:objectdetection/Login/Login.dart';
+import 'package:objectdetection/Sign%20Up/SignUp.dart';
+import 'package:objectdetection/Splash%20Screen.dart';
+import 'package:objectdetection/camerapage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:firebase_ml_vision/firebase_ml_vision.dart';
+import 'package:camera/camera.dart';
+import 'package:path/path.dart' show join;
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(FlutterVisionApp());
+
+  runApp(OurSignUp());
 }
 
 class FlutterVisionApp extends StatelessWidget {
@@ -45,16 +51,23 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Container(
-                height: 150,
                 child: Container(
-                  height: 150,
-                  child: Padding(
-                    padding: const EdgeInsets.all(1.0),
-                    child: Center(
-                      child: _imagelist(),
-                    ),
-                  ),
-                ))
+              child: Padding(
+                padding: const EdgeInsets.all(1.0),
+                child: Center(
+                  child: _imagelist(),
+                ),
+              ),
+            )),
+            IconButton(
+                icon: Icon(Icons.av_timer_sharp),
+                onPressed: () async {
+                  Navigator.of(
+                    context,
+                  ).push(MaterialPageRoute(
+                    builder: (context) => CameraApp(),
+                  ));
+                })
           ],
         ),
       ),
@@ -64,16 +77,16 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _imagelist() {
     return GestureDetector(
       child: Center(
-        child: Image.asset("lib/assets/ironman.jpg"),
+        child: Image.asset("lib/assets/car.jpg"),
       ),
       onTap: () async {
         print("Trying to detect Image");
-        String file = await getImageFileFromAssets("ironman.jpg");
+        String file = await getImageFileFromAssets("car.jpg");
         print(file);
         setState(() {
           imgPath = file;
         });
-        detectLabels();
+        //detectLabels();
       },
     );
   }
@@ -104,8 +117,8 @@ class _MyHomePageState extends State<MyHomePage> {
         .imageLabeler(ImageLabelerOptions(confidenceThreshold: 0.25));
     final List<ImageLabel> labels =
         await labelDetector.processImage(visionImage);
-    final List<ImageLabel> cloudLabels =
-        await cloudLabeler.processImage(visionImage);
+    //final List<ImageLabel> cloudLabels =
+    //  await cloudLabeler.processImage(visionImage);
 
     for (ImageLabel label in labels) {
       final String text = label.text;

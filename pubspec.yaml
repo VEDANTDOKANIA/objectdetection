@@ -35,6 +35,10 @@ dev_dependencies:
   firebase_ml_vision:
   cloud_firestore:
   path_provider:
+  camera:
+  path:
+  esys_flutter_share:
+  flare_flutter:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -49,12 +53,15 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-   - lib/assets/refrigirator.jpeg
-   - lib/assets/table.jpg
-   - lib/assets/fridge.jpg
-   - lib/assets/car.jpg
-   - lib/assets/kr.jpg
-   - lib/assets/ironman.jpg
+    - lib/assets/refrigirator.jpeg
+    - lib/assets/table.jpg
+    - lib/assets/fridge.jpg
+    - lib/assets/car.jpg
+    - lib/assets/kr.jpg
+    - lib/assets/ironman.jpg
+    - lib/assets/Hack20.flr
+    - lib/assets/google_logo.png
+    - lib/assets/final logo.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
